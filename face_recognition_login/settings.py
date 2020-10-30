@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from common.config.runtime_config import RuntimeConfig
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -37,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users'
 ]
 
 MIDDLEWARE = [
@@ -50,6 +53,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'face_recognition_login.urls'
+AUTH_USER_MODEL = 'users.CustomUserEntity'
+
 
 TEMPLATES = [
     {
@@ -74,9 +79,13 @@ WSGI_APPLICATION = 'face_recognition_login.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+     'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': RuntimeConfig.MYSQL_DB_SCHEMA,
+        'USER': RuntimeConfig.MYSQL_DB_USERNAME,
+        'PASSWORD': RuntimeConfig.MYSQL_DB_PASSWORD,
+        'HOST': RuntimeConfig.MYSQL_DB_URL,  # Or an IP Address that your DB is hosted on
+        'PORT': RuntimeConfig.MYSQL_DB_PORT,
     }
 }
 
