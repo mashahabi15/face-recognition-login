@@ -24,6 +24,6 @@ class DevelopmentRuntimeConfig:
     MYSQL_DB_PASSWORD = "root"
     MYSQL_DB_SCHEMA = "face_recognition_login"
 
-
+    DATA_DIR = '/home/maedeh/'
 class RuntimeConfig(DevelopmentRuntimeConfig):
     pass

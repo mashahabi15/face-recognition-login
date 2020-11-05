@@ -1,0 +1,5 @@
+Django==2.2.0
+djangorestframework==3.9.0
+pymysql==0.10.1
+cryptography==3.1.1
+Pillow==4.3.0

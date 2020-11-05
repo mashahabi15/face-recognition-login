@@ -9,14 +9,13 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from common.config.runtime_config import RuntimeConfig
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -27,8 +26,7 @@ SECRET_KEY = 'ofeu3&-*y$&v^$x4p4i&w!0(ssqav=(bzeyx-9)(g8et!k87yd'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = RuntimeConfig.ALLOWED_HOSTS
 
 # Application definition
 
@@ -39,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users'
+
+    'authentication',
+    'common',
 ]
 
 MIDDLEWARE = [
@@ -53,8 +53,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'face_recognition_login.urls'
-AUTH_USER_MODEL = 'users.CustomUserEntity'
-
+AUTH_USER_MODEL = 'authentication.CustomUserEntity'
 
 TEMPLATES = [
     {
@@ -74,12 +73,22 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'face_recognition_login.wsgi.application'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        # 'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny'
+    ),
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-     'default': {
+    'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': RuntimeConfig.MYSQL_DB_SCHEMA,
         'USER': RuntimeConfig.MYSQL_DB_USERNAME,
@@ -88,7 +97,6 @@ DATABASES = {
         'PORT': RuntimeConfig.MYSQL_DB_PORT,
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -108,7 +116,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -122,8 +129,11 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
