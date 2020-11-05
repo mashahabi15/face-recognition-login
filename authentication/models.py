@@ -25,4 +25,4 @@ class Image(models.Model):
                                            default=1,
                                            on_delete=models.CASCADE,
                                            )
-    image = models.ImageField(upload_to='staticfiles/photo/%Y/%m/%d')
+    image = models.ImageField(upload_to='staticfiles/photo/')
