@@ -19,7 +19,7 @@ class CustomUserEntity(AbstractUser):
     REQUIRED_FIELDS = []
 
 
-class Image(models.Model):
+class ImageEntity(models.Model):
     custom_user_entity = models.ForeignKey('CustomUserEntity',
                                            null=False,
                                            default=1,
