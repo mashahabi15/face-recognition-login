@@ -89,12 +89,8 @@ REST_FRAMEWORK = {
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': RuntimeConfig.MYSQL_DB_SCHEMA,
-        'USER': RuntimeConfig.MYSQL_DB_USERNAME,
-        'PASSWORD': RuntimeConfig.MYSQL_DB_PASSWORD,
-        'HOST': RuntimeConfig.MYSQL_DB_URL,  # Or an IP Address that your DB is hosted on
-        'PORT': RuntimeConfig.MYSQL_DB_PORT,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase',
     }
 }
 
